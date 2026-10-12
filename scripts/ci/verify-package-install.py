@@ -7,6 +7,9 @@ import os
 import subprocess
 import sys
 import tempfile
+import functools
+import http.server
+import threading
 import zipfile
 
 parser = argparse.ArgumentParser()
@@ -41,7 +44,15 @@ with tempfile.TemporaryDirectory(prefix='bridge-native-install-') as temporary:
     consumer.mkdir()
     command([specify, 'init', '--here', '--force', '--non-interactive', '--integration',
              'codex', '--script', 'ps' if win else 'sh', '--ignore-agent-tools'], consumer)
-    command([specify, 'extension', 'add', 'speckit-superpowers-bridge', '--from', archive], consumer, 'y\n')
+    handler = functools.partial(http.server.SimpleHTTPRequestHandler, directory=str(archive.parent))
+    server = http.server.ThreadingHTTPServer(('127.0.0.1', 0), handler)
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    url = 'http://127.0.0.1:' + str(server.server_port) + '/' + archive.name
+    try:
+        command([specify, 'extension', 'add', 'speckit-superpowers-bridge', '--from', url], consumer, 'y\n')
+    finally:
+        server.shutdown()
+        server.server_close()
     extension = consumer / '.specify/extensions/speckit-superpowers-bridge'
     with zipfile.ZipFile(archive) as package:
         for name in package.namelist():

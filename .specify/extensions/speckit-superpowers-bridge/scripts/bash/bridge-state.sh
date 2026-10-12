@@ -22,8 +22,7 @@ get_pending_task_count() {
         # Detect any markdown header
         /^#+[[:space:]]+/ {
             lower = tolower($0)
-            if (lower ~ /\<deferred\>/ || lower ~ /\<optional\>/ || lower ~ /\<out of scope\>/ \
-                || lower ~ /won.?t do/ || lower ~ /\<future\>/ || lower ~ /\<wontfix\>/ || lower ~ /\<backlog\>/) {
+            if (lower ~ /(^|[^[:alnum:]_])(deferred|optional|out of scope|won.?t do|future|wontfix|backlog)([^[:alnum:]_]|$)/) {
                 in_exempt = 1
             } else {
                 in_exempt = 0
