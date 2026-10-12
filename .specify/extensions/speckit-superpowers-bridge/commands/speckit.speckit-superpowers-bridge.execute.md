@@ -8,11 +8,16 @@ Execute the active Spec Kit feature through Superpowers without running `speckit
 
 ## Behavior
 
-1. Read `.specify/superpowers-handoff.json`; if it is missing or stale, create a ready handoff with the platform-selected `update-handoff` script.
+1. Read `.specify/superpowers-handoff.json`; if it is missing or stale, create a ready handoff with the platform-selected `update-handoff` script. After every ready/executing update, re-read the actual handoff status: the compatible exit code 0 can still mean blocked. If blocked, report blocked_reason and STOP before implementation.
 2. Read `.specify/memory/constitution.md`, `spec.md`, `plan.md`, and `tasks.md` before touching implementation files.
 3. Run the bridge guard for `superpowers.executing-plans`.
 4. Derive a disposable Superpowers adapter outside `.superpowers/sdd/` from the canonical `tasks.md` and execute that adapter with Superpowers implementation discipline: TDD, systematic debugging, review, verification, and branch finishing.
 5. Keep task checkboxes and handoff state current. If the Spec Kit contract is wrong or incomplete, stop and set handoff status to `blocked`.
+
+After verified completion, use `$speckit-speckit-superpowers-bridge-converge`
+(Codex) or `/speckit-speckit-superpowers-bridge-converge` (Claude) when assessment
+against the Spec Kit contract is requested. Do not invoke raw SK converge for
+SP-completed tasks; its implement prerequisite remains unchanged.
 
 ## Execution
 

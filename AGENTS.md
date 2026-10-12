@@ -138,6 +138,15 @@ release ZIP installs in a separate consumer project or `../test_specify_superpow
 
 ## Auto-archive transitions
 
+- v1.4.0 provides a separate `speckit.speckit-superpowers-bridge.converge`
+  command over a temporary adapter of the installed SK procedure. Its eligibility
+  checks consume completed SP evidence before archival. Only the executor seam
+  is adapted; the native assessment/append/hook instructions remain authoritative.
+  Convergence append-only corrections are allowed after completion and return
+  the feature to ready. This does not authorize rewriting existing requirements.
+- A ready/executing handoff update may exit 0 but resolve to blocked when required
+  artifacts are missing. Always re-read status and stop before implementation.
+
 - `.specify/superpowers-handoff.json` is repo-scoped: at most one active handoff at a time. When a feature finishes, its terminal `complete` status remains in the file until a new feature starts.
 - A `complete` handoff for a prior feature must NOT block contract changes on a different, new feature. The bridge guard treats `complete` as terminal-not-active; cross-feature requests are allowed.
 - Use the platform-selected auto-archive helper (`auto-archive-handoff.ps1 -Actor <codex|claude>` or `auto-archive-handoff.sh --actor <codex|claude>`) to archive a `complete` handoff. The helper is idempotent: when status is not `complete`, it is a no-op success exit.

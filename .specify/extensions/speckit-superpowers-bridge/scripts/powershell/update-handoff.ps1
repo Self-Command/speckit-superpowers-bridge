@@ -157,9 +157,10 @@ if ($featureDirectoryFullPath) {
 
 $resolvedStatus = $Status
 $blockedReason = $null
-if ($missing.Count -gt 0 -and $Status -ne "complete" -and $Status -ne "ready") {
+if ($missing.Count -gt 0 -and $Status -ne "complete") {
     $resolvedStatus = "blocked"
-    $blockedReason = if ([string]::IsNullOrWhiteSpace($Reason)) { "Missing required Spec Kit artifacts: " + (($missing.ToArray()) -join ", ") } else { $Reason }
+    $missingReason = "Missing required Spec Kit artifacts: " + (($missing.ToArray()) -join ", ")
+    $blockedReason = if ([string]::IsNullOrWhiteSpace($Reason)) { $missingReason } elseif ($Status -eq "blocked") { $Reason } else { "$missingReason; $Reason" }
 }
 elseif ($Status -eq "blocked") {
     $blockedReason = if ([string]::IsNullOrWhiteSpace($Reason)) { "(no reason provided)" } else { $Reason }

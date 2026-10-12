@@ -193,12 +193,15 @@ fi
 
 resolved_status="$STATUS"
 blocked_reason=""
-if [ "${#missing[@]}" -gt 0 ] && [ "$STATUS" != "complete" ] && [ "$STATUS" != "ready" ]; then
+if [ "${#missing[@]}" -gt 0 ] && [ "$STATUS" != "complete" ]; then
     resolved_status="blocked"
-    if [ -n "$REASON" ]; then
+    missing_reason="Missing required Spec Kit artifacts: $(IFS=', '; printf '%s' "${missing[*]}")"
+    if [ -n "$REASON" ] && [ "$STATUS" = "blocked" ]; then
         blocked_reason="$REASON"
+    elif [ -n "$REASON" ]; then
+        blocked_reason="$missing_reason; $REASON"
     else
-        blocked_reason="Missing required Spec Kit artifacts: $(IFS=', '; printf '%s' "${missing[*]}")"
+        blocked_reason="$missing_reason"
     fi
 elif [ "$STATUS" = "blocked" ]; then
     blocked_reason="${REASON:-"(no reason provided)"}"

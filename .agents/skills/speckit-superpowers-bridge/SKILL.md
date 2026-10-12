@@ -17,7 +17,7 @@ This skill is the **thin orchestrator** between Spec Kit (design) and Superpower
 ## What this skill does
 
 1. Read `.specify/superpowers-handoff.json` to find `feature_directory`. If status is `complete`, run the platform-selected auto-archive script first so the new feature begins from `ready`.
-2. Read `<feature_directory>/spec.md`, `plan.md`, `tasks.md`, and `.specify/memory/constitution.md`.
+2. After every ready/executing update, re-read actual status; if blocked, report blocked_reason and STOP before implementation. Read `<feature_directory>/spec.md`, `plan.md`, `tasks.md`, and `.specify/memory/constitution.md`.
 3. Fire the `before_implement` extension hooks from `.specify/extensions.yml` (see "Extension hooks" below).
 4. Transition handoff to `executing` using `.specify/init-options.json.script` (`ps` => PowerShell, `sh` => bash). **Do NOT pass `-ArtifactOwner` / `--artifact-owner`** — the script silently preserves the prior owner from the handoff JSON when the flag is omitted (per spec 003-bridge-cross-platform-scripts FR-001). Pass `-ArtifactOwner` only if you are intentionally transferring ownership (e.g., a maintainer rebasing a feature onto a different designer).
    ```powershell
@@ -145,3 +145,7 @@ From v0.5.0 onward, every `update-handoff` and `guard-command` invocation prints
 
 - `bridge-status.{sh,ps1}` — read-only on-demand introspection (prints `[bridge state]` + `Drift:` + `Next:` recommendation; never writes). See `specs/012-bridge-status-and-hash/`.
 - `bridge-status.{sh,ps1} --readiness` / `-Readiness` — read-only install health report added for v1.0.0. It checks script flavor, required tools, namespace alignment, package files, bridge state, verified agent metadata, and next action; `--json` / `-Json` returns machine-readable readiness output.
+
+## Convergence after SP completion
+
+Use `$speckit-speckit-superpowers-bridge-converge` before archival when assessment is requested. It validates completion evidence and uses a temporary adapter of the installed SK convergence procedure. Raw SK converge still requires SK implement. Appended corrections return to the bridge; do not replace canonical documents.

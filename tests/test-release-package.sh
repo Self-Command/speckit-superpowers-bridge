@@ -55,8 +55,8 @@ PY
 }
 
 cmd_count="$(find "$BRIDGE_DIR/commands" -maxdepth 1 -type f -name '*.md' | wc -l)"
-[ "$cmd_count" -eq 3 ] || fail "expected exactly 3 bridge command files, got $cmd_count"
-for cmd in execute guard handoff; do
+[ "$cmd_count" -eq 4 ] || fail "expected exactly 4 bridge command files, got $cmd_count"
+for cmd in execute guard handoff converge; do
     assert_file ".specify/extensions/speckit-superpowers-bridge/commands/speckit.speckit-superpowers-bridge.$cmd.md"
 done
 

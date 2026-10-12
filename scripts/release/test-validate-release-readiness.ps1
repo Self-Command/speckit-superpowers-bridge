@@ -60,6 +60,8 @@ provides:
       file: commands/speckit.speckit-superpowers-bridge.guard.md
     - name: $CommandNamespace.execute
       file: commands/speckit.speckit-superpowers-bridge.execute.md
+    - name: $CommandNamespace.converge
+      file: commands/speckit.speckit-superpowers-bridge.converge.md
 hooks:
   before_plan:
     command: $HookNamespace.guard
@@ -74,7 +76,7 @@ hooks:
         Copy-Item -LiteralPath (Join-Path $bridgeDir "extension.yml") -Destination (Join-Path $root "extension.yml")
     }
 
-    foreach ($cmd in @("handoff", "guard", "execute")) {
+    foreach ($cmd in @("handoff", "guard", "execute", "converge")) {
         Set-Content -LiteralPath (Join-Path $cmdDir "speckit.speckit-superpowers-bridge.$cmd.md") -Value "# $cmd" -Encoding UTF8
     }
 
@@ -88,7 +90,7 @@ hooks:
 
     $url = "https://github.com/lihan3238/speckit-superpowers-bridge/releases/download/v$DownloadUrlVersion/speckit-superpowers-bridge-v$DownloadUrlVersion.zip"
     $catalogProvides = if ($CatalogHasCapabilityCounts) {
-        '  "provides": { "commands": 3, "hooks": 5 }'
+        '  "provides": { "commands": 4, "hooks": 5 }'
     } else {
         '  "provides": { "commands": 2, "hooks": 5 }'
     }
@@ -194,7 +196,7 @@ https://github.com/lihan3238/speckit-superpowers-bridge/releases/latest/download
 
 ### Number of Commands
 
-3
+4
 
 ### Number of Hooks
 

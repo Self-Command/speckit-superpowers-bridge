@@ -1,3 +1,5 @@
+> **Maintained fork, v1.4.0 candidate.** Based on [lihan3238 upstream](https://github.com/lihan3238/speckit-superpowers-bridge). Current SK 1.1.3 / SP 7.0.0 compatibility evidence is pending.
+
 <p align="center">
   <img src="https://raw.githubusercontent.com/lihan3238/speckit-superpowers-bridge/main/assets/social/github-social-preview.png" alt="speckit-superpowers-bridge: Spec Kit writes WHAT. Superpowers enforces HOW." width="960" />
 </p>
@@ -8,10 +10,10 @@
 
 <p align="center">
   <a href="./LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" /></a>
-  <a href="https://github.com/lihan3238/speckit-superpowers-bridge/releases"><img alt="Bridge version" src="https://img.shields.io/github/v/release/lihan3238/speckit-superpowers-bridge?style=flat-square&label=bridge" /></a>
+  <a href="https://github.com/Self-Command/speckit-superpowers-bridge/releases"><img alt="Bridge version" src="https://img.shields.io/github/v/release/Self-Command/speckit-superpowers-bridge?style=flat-square&label=bridge" /></a>
   <a href="https://github.com/github/spec-kit"><img alt="Spec Kit verified 1.0.12" src="https://img.shields.io/badge/Spec_Kit-verified_1.0.12-success?style=flat-square" /></a>
   <a href="https://github.com/obra/superpowers"><img alt="Superpowers verified 6.4.2" src="https://img.shields.io/badge/Superpowers-verified_6.4.2-success?style=flat-square" /></a>
-  <a href="https://github.com/github/spec-kit/blob/main/docs/community/extensions.md"><img alt="Spec Kit Marketplace listed" src="https://img.shields.io/badge/Spec_Kit_Marketplace-listed-blueviolet?style=flat-square" /></a>
+  <a href="https://github.com/github/spec-kit/blob/main/docs/community/extensions.md"><img alt="Upstream Spec Kit Marketplace entry" src="https://img.shields.io/badge/Spec_Kit_Upstream_Catalog-listed-blueviolet?style=flat-square" /></a>
 </p>
 
 # speckit-superpowers-bridge
@@ -41,7 +43,7 @@ Install the current stable release:
 
 ```bash
 specify extension add speckit-superpowers-bridge \
-  --from https://github.com/lihan3238/speckit-superpowers-bridge/releases/latest/download/speckit-superpowers-bridge.zip
+  --from https://github.com/Self-Command/speckit-superpowers-bridge/releases/latest/download/speckit-superpowers-bridge.zip
 ```
 
 ## Why speckit-superpowers-bridge
@@ -58,7 +60,7 @@ The bridge is the thinnest possible glue that lets the two cooperate without eit
 specify init my-project --integration claude   # or --integration codex
 cd my-project
 specify extension add speckit-superpowers-bridge \
-  --from https://github.com/lihan3238/speckit-superpowers-bridge/releases/latest/download/speckit-superpowers-bridge.zip
+  --from https://github.com/Self-Command/speckit-superpowers-bridge/releases/latest/download/speckit-superpowers-bridge.zip
 ```
 
 What this does, in 7 steps:
@@ -181,7 +183,7 @@ The community catalog is discovery-only by default, so the normal install comman
 ```powershell
 specify init my-project --integration codex
 cd my-project
-specify extension add speckit-superpowers-bridge --from https://github.com/lihan3238/speckit-superpowers-bridge/releases/latest/download/speckit-superpowers-bridge.zip
+specify extension add speckit-superpowers-bridge --from https://github.com/Self-Command/speckit-superpowers-bridge/releases/latest/download/speckit-superpowers-bridge.zip
 ```
 
 No Claude Code dependency. The bridge runs entirely through Codex's `$speckit-*` invocation surface.
@@ -191,7 +193,7 @@ No Claude Code dependency. The bridge runs entirely through Codex's `$speckit-*`
 ```powershell
 specify init my-project --integration claude
 cd my-project
-specify extension add speckit-superpowers-bridge --from https://github.com/lihan3238/speckit-superpowers-bridge/releases/latest/download/speckit-superpowers-bridge.zip
+specify extension add speckit-superpowers-bridge --from https://github.com/Self-Command/speckit-superpowers-bridge/releases/latest/download/speckit-superpowers-bridge.zip
 ```
 
 No Codex dependency. The bridge runs through Claude Code's `/speckit-*` slash commands.
@@ -202,7 +204,7 @@ No Codex dependency. The bridge runs through Claude Code's `/speckit-*` slash co
 specify init my-project --integration claude         # or --integration codex
 cd my-project
 specify integration install codex                     # or 'claude' if you started with codex
-specify extension add speckit-superpowers-bridge --from https://github.com/lihan3238/speckit-superpowers-bridge/releases/latest/download/speckit-superpowers-bridge.zip
+specify extension add speckit-superpowers-bridge --from https://github.com/Self-Command/speckit-superpowers-bridge/releases/latest/download/speckit-superpowers-bridge.zip
 ```
 
 Both `.agents/skills/` (Codex) and `.claude/skills/` (Claude Code) receive the bridge skill peer files. You can design in one agent and implement in another by simply switching tabs.
@@ -244,7 +246,7 @@ release-verification sandbox `../test_specify_superpower`.
 **Version-pinned install** (for reproducible installs of a specific release):
 
 ```powershell
-specify extension add speckit-superpowers-bridge --from https://github.com/lihan3238/speckit-superpowers-bridge/releases/download/v1.3.0/speckit-superpowers-bridge-v1.3.0.zip
+specify extension add speckit-superpowers-bridge --from https://github.com/Self-Command/speckit-superpowers-bridge/releases/download/v1.3.0/speckit-superpowers-bridge-v1.3.0.zip
 ```
 
 </details>
@@ -382,7 +384,7 @@ When upstream tools ship a new release that breaks the bridge, we either patch t
 Spec Kit `0.9.x` moved coding-agent context updates into the bundled `agent-context` extension. The bridge runtime does not depend on that extension, so `requires.speckit_version` stays at `>=0.8.10`; this repository tracks the current 1.0.12 `agent-context` and `git` sources only to keep its own Spec Kit project bootstrap current.
 
 > [!NOTE]
-> **From v0.6.0 onward**, the marketplace `download_url` is decoupled from the version. It permanently points at `https://github.com/lihan3238/speckit-superpowers-bridge/releases/latest/download/speckit-superpowers-bridge.zip` and resolves via GitHub's `/releases/latest/` alias. Future bridge releases never edit `download_url`; only `version` is bumped in `marketplace/catalog-entry.json`. This removes a recurring per-release edit class and a drift surface — one of the smallest possible Principle-VI wins.
+> **From v0.6.0 onward**, the marketplace `download_url` is decoupled from the version. It permanently points at `https://github.com/Self-Command/speckit-superpowers-bridge/releases/latest/download/speckit-superpowers-bridge.zip` and resolves via GitHub's `/releases/latest/` alias. Future bridge releases never edit `download_url`; only `version` is bumped in `marketplace/catalog-entry.json`. This removes a recurring per-release edit class and a drift surface — one of the smallest possible Principle-VI wins.
 
 </details>
 

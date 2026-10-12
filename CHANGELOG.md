@@ -6,6 +6,22 @@ This project adheres to [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1
 
 > **AI-assistance disclosure**: This extension is developed with AI coding assistants (Claude Code for design + planning, Codex for implementation passes, Claude Code for the v0.3.0 trim), per the AI-disclosure requirement in [Spec Kit CONTRIBUTING.md](https://github.com/github/spec-kit/blob/main/CONTRIBUTING.md). Every artifact passes human review before commit. As of v0.3.0 the verification surface is three retained smoke tests under `tests/`.
 
+## [1.4.0] - 2026-10-13
+
+### Fixed
+
+- Active ready/executing handoffs now block when any required Spec Kit artifact is missing, in both shell flavors.
+
+### Added
+
+- A separately named bridge convergence command validates SP completion and adapts the installed native SK executor seam in a temporary file.
+- Packaged consumer regressions and bounded latest-version Codex Actions coverage.
+
+### Compatibility
+
+- Candidate targets SK 1.1.3 / SP 7.0.0 / Codex CLI 0.162.1; evidence is pending until the current gates pass.
+- The original SK converge prerequisite remains unchanged; use the bridge-specific entry for SP-completed features.
+
 ## [Unreleased]
 
 ## [1.3.0] - 2026-09-26

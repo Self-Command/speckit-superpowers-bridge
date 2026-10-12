@@ -1,3 +1,5 @@
+> **维护 fork，v1.4.0 候选版。** 基于 [lihan3238 原项目](https://github.com/lihan3238/speckit-superpowers-bridge)。SK 1.1.3 / SP 7.0.0 的本轮兼容验证尚未完成。
+
 <p align="center">
   <img src="https://raw.githubusercontent.com/lihan3238/speckit-superpowers-bridge/main/assets/social/github-social-preview.png" alt="speckit-superpowers-bridge: Spec Kit 写 WHAT。Superpowers 执行 HOW。" width="960" />
 </p>
@@ -8,10 +10,10 @@
 
 <p align="center">
   <a href="./LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" /></a>
-  <a href="https://github.com/lihan3238/speckit-superpowers-bridge/releases"><img alt="Bridge version" src="https://img.shields.io/github/v/release/lihan3238/speckit-superpowers-bridge?style=flat-square&label=bridge" /></a>
+  <a href="https://github.com/Self-Command/speckit-superpowers-bridge/releases"><img alt="Bridge version" src="https://img.shields.io/github/v/release/Self-Command/speckit-superpowers-bridge?style=flat-square&label=bridge" /></a>
   <a href="https://github.com/github/spec-kit"><img alt="Spec Kit verified 1.0.12" src="https://img.shields.io/badge/Spec_Kit-verified_1.0.12-success?style=flat-square" /></a>
   <a href="https://github.com/obra/superpowers"><img alt="Superpowers verified 6.4.2" src="https://img.shields.io/badge/Superpowers-verified_6.4.2-success?style=flat-square" /></a>
-  <a href="https://github.com/github/spec-kit/blob/main/docs/community/extensions.md"><img alt="Spec Kit Marketplace listed" src="https://img.shields.io/badge/Spec_Kit_Marketplace-listed-blueviolet?style=flat-square" /></a>
+  <a href="https://github.com/github/spec-kit/blob/main/docs/community/extensions.md"><img alt="Upstream Spec Kit Marketplace entry" src="https://img.shields.io/badge/Spec_Kit_Upstream_Catalog-listed-blueviolet?style=flat-square" /></a>
 </p>
 
 # speckit-superpowers-bridge
@@ -41,7 +43,7 @@
 
 ```bash
 specify extension add speckit-superpowers-bridge \
-  --from https://github.com/lihan3238/speckit-superpowers-bridge/releases/latest/download/speckit-superpowers-bridge.zip
+  --from https://github.com/Self-Command/speckit-superpowers-bridge/releases/latest/download/speckit-superpowers-bridge.zip
 ```
 
 ## 为什么用 speckit-superpowers-bridge
@@ -58,7 +60,7 @@ Superpowers 擅长「执行」纪律（TDD、systematic debugging（系统化调
 specify init my-project --integration claude   # 或 --integration codex
 cd my-project
 specify extension add speckit-superpowers-bridge \
-  --from https://github.com/lihan3238/speckit-superpowers-bridge/releases/latest/download/speckit-superpowers-bridge.zip
+  --from https://github.com/Self-Command/speckit-superpowers-bridge/releases/latest/download/speckit-superpowers-bridge.zip
 ```
 
 7 步说明这段命令做了什么：
@@ -181,7 +183,7 @@ community catalog 默认是 discovery-only，所以正常安装使用稳定的 l
 ```powershell
 specify init my-project --integration codex
 cd my-project
-specify extension add speckit-superpowers-bridge --from https://github.com/lihan3238/speckit-superpowers-bridge/releases/latest/download/speckit-superpowers-bridge.zip
+specify extension add speckit-superpowers-bridge --from https://github.com/Self-Command/speckit-superpowers-bridge/releases/latest/download/speckit-superpowers-bridge.zip
 ```
 
 无 Claude Code 依赖。桥完全跑在 Codex 的 `$speckit-*` 调用面上。
@@ -191,7 +193,7 @@ specify extension add speckit-superpowers-bridge --from https://github.com/lihan
 ```powershell
 specify init my-project --integration claude
 cd my-project
-specify extension add speckit-superpowers-bridge --from https://github.com/lihan3238/speckit-superpowers-bridge/releases/latest/download/speckit-superpowers-bridge.zip
+specify extension add speckit-superpowers-bridge --from https://github.com/Self-Command/speckit-superpowers-bridge/releases/latest/download/speckit-superpowers-bridge.zip
 ```
 
 无 Codex 依赖。桥跑在 Claude Code 的 `/speckit-*` 斜杠命令上。
@@ -202,7 +204,7 @@ specify extension add speckit-superpowers-bridge --from https://github.com/lihan
 specify init my-project --integration claude         # 或 --integration codex
 cd my-project
 specify integration install codex                     # 反之 'claude'
-specify extension add speckit-superpowers-bridge --from https://github.com/lihan3238/speckit-superpowers-bridge/releases/latest/download/speckit-superpowers-bridge.zip
+specify extension add speckit-superpowers-bridge --from https://github.com/Self-Command/speckit-superpowers-bridge/releases/latest/download/speckit-superpowers-bridge.zip
 ```
 
 `.agents/skills/`（Codex）与 `.claude/skills/`（Claude Code）都会拿到桥的同名 skill 文件。一边设计、一边实现，只需切换 Tab。
@@ -243,7 +245,7 @@ specify extension add --dev (Join-Path $tmp.FullName "speckit-superpowers-bridge
 **固定版本安装**（用来可复现地安装某个精确版本）：
 
 ```powershell
-specify extension add speckit-superpowers-bridge --from https://github.com/lihan3238/speckit-superpowers-bridge/releases/download/v1.3.0/speckit-superpowers-bridge-v1.3.0.zip
+specify extension add speckit-superpowers-bridge --from https://github.com/Self-Command/speckit-superpowers-bridge/releases/download/v1.3.0/speckit-superpowers-bridge-v1.3.0.zip
 ```
 
 </details>
@@ -381,7 +383,7 @@ verified metadata 记录在 [`.specify/extensions/speckit-superpowers-bridge/ver
 Spec Kit `0.9.x` 已把 coding-agent context（编码代理上下文）更新迁移到 bundled（内置）`agent-context` 扩展。桥的运行时不依赖这个扩展，所以 `requires.speckit_version` 仍保持 `>=0.8.10`；本仓库跟踪当前 1.0.12 的 `agent-context` 与 `git` 源码，只为保持自身的 Spec Kit project bootstrap 最新。
 
 > [!NOTE]
-> **自 v0.6.0 起**，marketplace 的 `download_url` 与版本号解耦。它永久指向 `https://github.com/lihan3238/speckit-superpowers-bridge/releases/latest/download/speckit-superpowers-bridge.zip`，由 GitHub 的 `/releases/latest/` 别名解析。后续桥 release 不再编辑 `download_url`，只在 `marketplace/catalog-entry.json` 里 bump `version`。这消除了一类反复出现的「每个版本编辑一次」工作量和漂移面 —— 是 Principle VI 能取得的最小一次胜利。
+> **自 v0.6.0 起**，marketplace 的 `download_url` 与版本号解耦。它永久指向 `https://github.com/Self-Command/speckit-superpowers-bridge/releases/latest/download/speckit-superpowers-bridge.zip`，由 GitHub 的 `/releases/latest/` 别名解析。后续桥 release 不再编辑 `download_url`，只在 `marketplace/catalog-entry.json` 里 bump `version`。这消除了一类反复出现的「每个版本编辑一次」工作量和漂移面 —— 是 Principle VI 能取得的最小一次胜利。
 
 </details>
 

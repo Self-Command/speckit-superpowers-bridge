@@ -1,6 +1,6 @@
 # Extension Submission: Superpowers Implementation Bridge
 
-Update to existing community catalog entry `speckit-superpowers-bridge`.
+Local submission template for the maintained Self-Command fork. No upstream submission has been made.
 
 ### Extension ID
 
@@ -12,7 +12,7 @@ Superpowers Implementation Bridge
 
 ### Version
 
-1.3.0
+1.4.0
 
 ### Description
 
@@ -24,11 +24,11 @@ lihan3238
 
 ### Repository URL
 
-https://github.com/lihan3238/speckit-superpowers-bridge
+https://github.com/Self-Command/speckit-superpowers-bridge
 
 ### Download URL
 
-https://github.com/lihan3238/speckit-superpowers-bridge/releases/download/v1.3.0/speckit-superpowers-bridge-v1.3.0.zip
+https://github.com/Self-Command/speckit-superpowers-bridge/releases/download/v1.4.0/speckit-superpowers-bridge-v1.4.0.zip
 
 The source repository's marketplace metadata keeps the stable latest-release alias for convenience. The official Spec Kit catalog submission uses this immutable versioned ZIP URL, as required for reproducible catalog installs.
 
@@ -38,23 +38,23 @@ MIT
 
 ### Homepage
 
-https://github.com/lihan3238/speckit-superpowers-bridge
+https://github.com/Self-Command/speckit-superpowers-bridge
 
 ### Documentation URL
 
-https://github.com/lihan3238/speckit-superpowers-bridge#readme
+https://github.com/Self-Command/speckit-superpowers-bridge#readme
 
 ### Changelog URL
 
-https://github.com/lihan3238/speckit-superpowers-bridge/blob/main/CHANGELOG.md
+https://github.com/Self-Command/speckit-superpowers-bridge/blob/main/CHANGELOG.md
 
 ### Required Spec Kit Version
 
 >=0.8.10
 
-Verified release baseline for v1.3.0:
+Verified release baseline for v1.4.0:
 
-- Spec Kit `1.0.12` for repository bootstrap, Linux bash verification, and the v1.3.0 release sandbox; bridge runtime floor remains `>=0.8.10`.
+- Spec Kit `1.0.12` for repository bootstrap, Linux bash verification, and the v1.4.0 release sandbox; bridge runtime floor remains `>=0.8.10`.
 - Superpowers `6.4.2`.
 - Codex CLI `0.157.1`.
 - Claude Code `2.1.283`.
@@ -68,7 +68,7 @@ Verified release baseline for v1.3.0:
 
 ### Number of Commands
 
-3
+4
 
 ### Number of Hooks
 
@@ -95,33 +95,30 @@ bridge, superpowers, cross-agent, tdd, workflow
 - New in v1.2.0: plug-and-play `before_implement` / `after_implement` extension-hook dispatch from PR #14, hardened to Spec Kit 0.16.4 semantics. Mandatory hooks emit `EXECUTE_COMMAND:`, are actually invoked and awaited, and mandatory post-hooks finish before handoff completion; bridge-owned hooks remain skipped.
 - New in v1.2.0: fixed Issue #13 by removing GNU-only `realpath -m` from the bash handoff writer. Portable, symlink-aware missing-path normalization now works on standard macOS without GNU coreutils.
 
-- New in v1.3.0: aligned tracked bootstrap sources and templates with Spec Kit 1.0.12, including current git/agent-context sources, command placeholders, and project gate preservation.
-- New in v1.3.0: advanced the verified-against-Superpowers baseline to 6.4.2 and documented inline `executing-plans` semantics.
-- New in v1.3.0: added a stable disposable adapter mapping Spec Kit checkbox tasks to the `Task N` headings required by Superpowers 6.4.2, while keeping `tasks.md` as the sole requirements source.
-- New in v1.3.0: updated malformed `.specify/extensions.yml` handling to report parser errors and state that no hooks, including mandatory hooks, were checked.
+- New in v1.4.0: aligned tracked bootstrap sources and templates with Spec Kit 1.0.12, including current git/agent-context sources, command placeholders, and project gate preservation.
+- New in v1.4.0: advanced the verified-against-Superpowers baseline to 6.4.2 and documented inline `executing-plans` semantics.
+- New in v1.4.0: added a stable disposable adapter mapping Spec Kit checkbox tasks to the `Task N` headings required by Superpowers 6.4.2, while keeping `tasks.md` as the sole requirements source.
+- New in v1.4.0: updated malformed `.specify/extensions.yml` handling to report parser errors and state that no hooks, including mandatory hooks, were checked.
 
 ### Support Matrix
 
 | Target | Result | Evidence |
 |---|---|---|
-| Linux bash | PASS | `bash tests/run-all.sh` (9/9) on Spec Kit 1.0.12, source/package validators, and the public-v1.3.0 WSL2 sandbox cycle. |
-| Windows PowerShell 5.1+ | PASS | Native `tests/test-release-powershell.ps1`, readiness validation, and the public-v1.3.0 Windows sibling sandbox cycle (`v1-3-0-windows-20260926T111613Z`). |
-| macOS bash | PASS | GitHub-hosted native macOS release gate runs the full bash suite and the Issue #13 portability regression; no local public-artifact sandbox claim. |
-| Codex | PASS | v1.3.0 implementation, source verification, and public-artifact cycle with Codex CLI `0.157.1`. |
-| Claude Code | PASS | Claude Code `2.1.283` integration/skill contract verification recorded in the v1.3.0 feature evidence; the official Claude marketplace currently serves Superpowers `6.4.1`, while the upstream `6.4.2` source audit passes. |
+| Linux bash | PENDING | Current candidate gate pending. |
+| Windows PowerShell 5.1+ | PENDING | Current candidate gate pending. |
+| macOS bash | PENDING | Shell gate only; live Codex not tested. |
+| Codex | PENDING | CLI 0.162.1, SK 1.1.3 and SP 7.0.0 targets pending. |
+| Claude Code | NOT TESTED | Mirrored-source structural checks only. |
 
 ### Release Validation Summary
 
-- `scripts/release/validate-release-readiness.ps1 -Version 1.3.0 -PackageZip dist/speckit-superpowers-bridge-v1.3.0.zip` passes.
-- `scripts/release/test-validate-release-readiness.ps1` passes, including negative fixtures for namespace drift, stale marketplace metadata, missing package flavor, missing agent rows, missing platform rows, and missing workflow evidence.
-- `bash tests/run-all.sh` passes.
-- `tests/test-release-powershell.ps1` passes under Windows PowerShell.
-- The macOS-hosted release gate passes the full bash suite and focused handoff portability regression.
-- GitHub release asset API reports both ZIPs at 83,891 bytes with SHA256 `2caba4377f003a6229585f1d559de6dedc1d5654e7f2566dcf9b98462c154525`; hosted workflow [36237907349](https://github.com/lihan3238/speckit-superpowers-bridge/actions/runs/36237907349) passed all platform gates.
+- `scripts/release/validate-release-readiness.ps1 -Version 1.4.0`: pending final evidence.
+- `bash tests/run-all.sh`: candidate Actions pending.
+- `tests/test-release-powershell.ps1`: candidate Actions pending.
 
 ### Lightweight Positioning
 
-v1.3.0 remains the same stable protocol release surface as v1.0.0, not a workflow rewrite. The bridge does not introduce a daemon, service, database, custom DSL, independent state machine, or parallel task runner. It borrows useful ideas from Superspec, SuperB, and Comet at the diagnostic/documentation level (readiness checks, evidence rows, namespace validation, truthful demos), but keeps runtime ownership with upstream Spec Kit and Superpowers — and trusts upstream growth: Superpowers 6.4.2 is adapted through disposable task scaffolding, Spec Kit's native runtime events do not replace core-command lifecycle hooks, and v1.3.0 composes Spec Kit's markdown-driven hook mechanism and adds no parallel runner or planner.
+v1.4.0 remains the same stable protocol release surface as v1.0.0, not a workflow rewrite. The bridge does not introduce a daemon, service, database, custom DSL, independent state machine, or parallel task runner. It borrows useful ideas from Superspec, SuperB, and Comet at the diagnostic/documentation level (readiness checks, evidence rows, namespace validation, truthful demos), but keeps runtime ownership with upstream Spec Kit and Superpowers — and trusts upstream growth: Superpowers 6.4.2 is adapted through disposable task scaffolding, Spec Kit's native runtime events do not replace core-command lifecycle hooks, and v1.4.0 composes Spec Kit's markdown-driven hook mechanism and adds no parallel runner or planner.
 
 ### AI-Assistance Disclosure
 
@@ -140,7 +137,7 @@ This extension is developed with AI coding assistants. Claude Code and Codex wer
 - [x] Valid `extension.yml` manifest included.
 - [x] README.md with installation and usage instructions included.
 - [x] LICENSE file included.
-- [x] GitHub release created with version tag: https://github.com/lihan3238/speckit-superpowers-bridge/releases/tag/v1.3.0
+- [x] GitHub release created with version tag: https://github.com/Self-Command/speckit-superpowers-bridge/releases/tag/v1.4.0
 - [x] All command files exist and are properly formatted.
 - [x] Extension ID follows naming conventions: lowercase with hyphens.
 
@@ -149,7 +146,7 @@ This extension is developed with AI coding assistants. Claude Code and Codex wer
 Tested on:
 
 - Linux bash / WSL2 with Spec Kit `1.0.12` and audited Superpowers `6.4.2`.
-- Native Windows PowerShell 5.1 with the v1.3.0 public release artifact.
+- Native Windows PowerShell 5.1 with the v1.4.0 public release artifact.
 - GitHub-hosted native macOS bash for source/runtime portability coverage.
 - Codex CLI `0.157.1`.
 - Claude Code `2.1.283`.
@@ -159,7 +156,7 @@ Test scenarios:
 1. Audited Spec Kit v1.0.12; refreshed tracked templates and bundled extension sources while preserving project-owned gates and bridge skills.
 2. Audited Superpowers `6.4.2`; confirmed all invoked skill paths and the Task N adapter contract remain present.
 3. Ran the full bash smoke suite (9/9), focused hook contract tests, the macOS/BSD path regression, shell syntax checks, and ShellCheck.
-4. Installed the public v1.3.0 ZIP in fresh WSL2/Linux and native Windows sibling sandboxes; the installed metadata reported 3 commands and 5 hooks.
+4. Installed the public v1.4.0 ZIP in fresh WSL2/Linux and native Windows sibling sandboxes; the installed metadata reported 3 commands and 5 hooks.
 5. Ran package and release-readiness validators plus native Windows PowerShell coverage.
 6. Required Linux, Windows, and macOS release jobs to pass before publication.
 7. Drove complete handoff cycles in both sibling sandboxes; focused hook and adapter contract tests covered the markdown-driven hook behavior.
@@ -167,7 +164,7 @@ Test scenarios:
 ### Example Usage
 
 ```bash
-specify extension add speckit-superpowers-bridge --from https://github.com/lihan3238/speckit-superpowers-bridge/releases/latest/download/speckit-superpowers-bridge.zip
+specify extension add speckit-superpowers-bridge --from https://github.com/Self-Command/speckit-superpowers-bridge/releases/latest/download/speckit-superpowers-bridge.zip
 ```
 
 Then use the bridge from the active agent after Spec Kit has generated `spec.md`, `plan.md`, and `tasks.md`:
@@ -191,12 +188,12 @@ Claude Code users invoke the same bridge contract as:
     "id": "speckit-superpowers-bridge",
     "description": "Thin orchestrator between Spec Kit (design) and Superpowers (implementation). Cross-agent.",
     "author": "lihan3238",
-    "version": "1.3.0",
-    "download_url": "https://github.com/lihan3238/speckit-superpowers-bridge/releases/download/v1.3.0/speckit-superpowers-bridge-v1.3.0.zip",
-    "repository": "https://github.com/lihan3238/speckit-superpowers-bridge",
-    "homepage": "https://github.com/lihan3238/speckit-superpowers-bridge",
-    "documentation": "https://github.com/lihan3238/speckit-superpowers-bridge#readme",
-    "changelog": "https://github.com/lihan3238/speckit-superpowers-bridge/blob/main/CHANGELOG.md",
+    "version": "1.4.0",
+    "download_url": "https://github.com/Self-Command/speckit-superpowers-bridge/releases/download/v1.4.0/speckit-superpowers-bridge-v1.4.0.zip",
+    "repository": "https://github.com/Self-Command/speckit-superpowers-bridge",
+    "homepage": "https://github.com/Self-Command/speckit-superpowers-bridge",
+    "documentation": "https://github.com/Self-Command/speckit-superpowers-bridge#readme",
+    "changelog": "https://github.com/Self-Command/speckit-superpowers-bridge/blob/main/CHANGELOG.md",
     "license": "MIT",
     "category": "process",
     "effect": "read-write",
@@ -221,7 +218,7 @@ Claude Code users invoke the same bridge contract as:
       ]
     },
     "provides": {
-      "commands": 3,
+      "commands": 4,
       "hooks": 5
     },
     "tags": [
@@ -235,7 +232,7 @@ Claude Code users invoke the same bridge contract as:
     "downloads": 0,
     "stars": 0,
     "created_at": "2026-05-15T00:00:00Z",
-    "updated_at": "2026-09-26T00:00:00Z"
+    "updated_at": "2026-10-12T16:57:57Z"
   }
 }
 ```
