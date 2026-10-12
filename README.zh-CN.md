@@ -1,4 +1,4 @@
-> **维护 fork，v1.4.0 候选版。** 基于 [lihan3238 原项目](https://github.com/lihan3238/speckit-superpowers-bridge)。SK 1.1.3 / SP 7.0.0 的本轮兼容验证尚未完成。
+> **维护修复版 v1.4.0。** 基于 [lihan3238 上游](https://github.com/lihan3238/speckit-superpowers-bridge)。已实测 SK 1.1.3 / SP 7.0.0 / Codex CLI 0.162.1，Linux 与 Windows 均使用 gpt-6.1-sol、low。
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/lihan3238/speckit-superpowers-bridge/main/assets/social/github-social-preview.png" alt="speckit-superpowers-bridge: Spec Kit 写 WHAT。Superpowers 执行 HOW。" width="960" />
@@ -11,9 +11,8 @@
 <p align="center">
   <a href="./LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" /></a>
   <a href="https://github.com/Self-Command/speckit-superpowers-bridge/releases"><img alt="Bridge version" src="https://img.shields.io/github/v/release/Self-Command/speckit-superpowers-bridge?style=flat-square&label=bridge" /></a>
-  <a href="https://github.com/github/spec-kit"><img alt="Spec Kit verified 1.0.12" src="https://img.shields.io/badge/Spec_Kit-verified_1.0.12-success?style=flat-square" /></a>
-  <a href="https://github.com/obra/superpowers"><img alt="Superpowers verified 6.4.2" src="https://img.shields.io/badge/Superpowers-verified_6.4.2-success?style=flat-square" /></a>
-  <a href="https://github.com/github/spec-kit/blob/main/docs/community/extensions.md"><img alt="Upstream Spec Kit Marketplace entry" src="https://img.shields.io/badge/Spec_Kit_Upstream_Catalog-listed-blueviolet?style=flat-square" /></a>
+  <a href="https://github.com/github/spec-kit"><img alt="Spec Kit verified 1.1.3" src="https://img.shields.io/badge/Spec_Kit-verified_1.1.3-success?style=flat-square" /></a>
+  <a href="https://github.com/obra/superpowers"><img alt="Superpowers verified 7.0.0" src="https://img.shields.io/badge/Superpowers-verified_7.0.0-success?style=flat-square" /></a>
 </p>
 
 # speckit-superpowers-bridge
@@ -37,7 +36,7 @@
 | Codex 与 Claude Code 协作 | 共享 `.specify/superpowers-handoff.json` 契约，两端 bridge skill（桥技能）内容一致。 |
 | Windows（微软桌面操作系统）、Linux（开源操作系统）与 macOS（苹果桌面操作系统）都能验证 | 同一个 ZIP（压缩归档格式）同时带 Bash（Bourne Again Shell，命令解释器）与 Windows PowerShell（微软命令行外壳）flavor（脚本变体），release gate（发布门禁）覆盖三个平台。 |
 | 插件市场需要的可信证据 | `bridge-status --readiness`、package validation（软件包校验）、确定性 release ZIP（发布压缩包）、已发布 SHA256（Secure Hash Algorithm 256-bit，安全哈希算法 256 位）证据。 |
-| 最小运行负担 | 3 个命令、5 个 hook（钩子）、每种 shell（命令外壳）flavor 6 个小状态脚本，无 runtime（运行时）service。 |
+| 最小运行负担 | 4 个命令、5 个 hook（钩子）、每种 shell（命令外壳）flavor 7 个小状态脚本，无 runtime（运行时）service。 |
 
 安装当前稳定版：
 
@@ -52,7 +51,7 @@ Spec Kit 擅长产出耐久的设计 artifact（constitution、spec、plan、tas
 
 Superpowers 擅长「执行」纪律（TDD、systematic debugging（系统化调试）、subagent-driven development（子代理驱动开发）、verification、code review、finishing a development branch（完成开发分支）），但它原生预期通过自家的 `brainstorming` 与 `writing-plans` 技能驱动设计，而不是从 Spec Kit 的 `tasks.md` 出发。
 
-桥是让二者合作的最薄胶水，并且不让任何一方蚕食对方的角色：一个 `superpowers-handoff.json` 状态文件、五条硬编码 guard 规则、每种 shell flavor 六个小脚本、一个编排 SKILL（技能说明文件），按顺序在 Spec Kit `tasks.md` 上调用原生 Superpowers。**没有 runtime matrix（运行时矩阵）、没有 audit loop（审计循环）、没有 implementation validation pass（实现校验步骤）、没有 command-parity subsystem（命令一致性子系统）、没有自定义 DSL（Domain-Specific Language，领域专用语言）—— 只有让循环跑起来的最小契约。**
+桥是让二者合作的最薄胶水，并且不让任何一方蚕食对方的角色：一个 `superpowers-handoff.json` 状态文件、五条硬编码 guard 规则、每种 shell flavor 七个小脚本、一个编排 SKILL（技能说明文件），按顺序在 Spec Kit `tasks.md` 上调用原生 Superpowers。**没有 runtime matrix（运行时矩阵）、没有 audit loop（审计循环）、没有 implementation validation pass（实现校验步骤）、没有 command-parity subsystem（命令一致性子系统）、没有自定义 DSL（Domain-Specific Language，领域专用语言）—— 只有让循环跑起来的最小契约。**
 
 ## 快速开始（Quick Start）
 
@@ -67,40 +66,30 @@ specify extension add speckit-superpowers-bridge \
 
 1. `specify init` 用你选的 Agent（编码代理）integration（集成）初始化一个 Spec Kit 项目。
 2. `specify extension add ... /releases/latest/download/...` 从稳定别名 URL（Uniform Resource Locator，统一资源定位符）安装桥（始终解析到最新发布 —— 后续发布永不失效）。
-3. Spec Kit 在 `.specify/extensions.yml` 注册桥的 3 个命令 + 5 个 hook。
+3. Spec Kit 在 `.specify/extensions.yml` 注册桥的 4 个命令 + 5 个 hook。
 4. 桥在 `.specify/extensions/speckit-superpowers-bridge/scripts/` 写入边界 guard（守卫）。
 5. 跑一个 feature（功能）：`/speckit-specify` → `/speckit-clarify` → `/speckit-plan` → `/speckit-tasks`。
-6. `after_tasks` 钩子自动触发 —— 桥写出 `.specify/superpowers-handoff.json`，status 为 `executing`。
+6. `after_tasks` 钩子自动触发 —— 桥写出 `.specify/superpowers-handoff.json`，status 为 `ready`。
 7. `/speckit-superpowers-bridge`（Claude Code）或 `$speckit-superpowers-bridge`（Codex）把 canonical `tasks.md` 映射到一次性的 `Task N` adapter，交给原生 `superpowers:executing-plans`，然后执行 verification + code review + branch finishing。handoff 转为 `complete`。
 
 > [!TIP]
 > 只有一个模糊的想法？在 `/speckit-specify` 之前先跑 `superpowers:brainstorming`。桥的 guard 在「pre-spec（规格前）」窗口允许这条路径 —— 产出的 design doc（设计文档）落在 `docs/superpowers/specs/<date>-<topic>-design.md`，你可以把它的相对路径写进 `/speckit-specify` 的描述里，LLM（Large Language Model，大语言模型）会把它当作 context（上下文）。参见 feature [010-prespec-brainstorming](specs/010-prespec-brainstorming/spec.md) 中记录的生命周期决策。
 
-## 1.x readiness（就绪度）与支持矩阵
+## v1.4.0 支持与修复
 
-v1.0.0 是稳定协议 release（发布）：不引入新的 workflow engine、不引入 daemon/service/database，也不替代 Spec Kit 或 Superpowers 的原生行为。本版本加强 package（软件包）/readiness 检查，并记录受支持平台与 Agent 的真实证据。
+当活动功能缺少 `spec.md`、`plan.md` 或 `tasks.md` 时，Bash 与 PowerShell 都将交接设为 `blocked`。脚本退出码可能仍为 0，执行前必须重新检查实际状态。
 
-v1.0.1 是同一协议面上的文档与开发 checkout（检出目录）清理补丁。
-
-v1.0.2 是展示与发布资产补丁：README（项目说明文档）顶图、社交卡片、marketplace（扩展市场）文案和贡献者文档小修；bridge runtime（桥运行时）行为不变。
-
-v1.0.3 是 Spec Kit 0.10.x 兼容对齐补丁：在 Spec Kit CLI（Command-Line Interface，命令行界面）`0.10.2` 上重新验证、声明新的 `category`/`effect` manifest（清单）字段、并按 0.10.0 的 Git（分布式版本控制系统）扩展 opt-in（显式启用）变化刷新 bootstrap（初始化）文档；bridge runtime 行为不变。
-
-v1.1.0 是 Superpowers 6.0.0 兼容对齐版本：将「已验证的 Superpowers 基线」从 `5.1.0` 推进到 `6.0.0`（上游 major（主版本）），且 **bridge runtime 零改动**。Superpowers 6.0.0 的破坏性变更全部位于上游 skill 内部（`subagent-driven-development`（子代理驱动开发）的 reviewer prompt（评审提示词）合并、worktree（工作树）改落到项目内 `.worktrees/`、prose（说明文本）去厂商化、新增三个 harness（运行适配器）），对仅按 skill 名调用上游的 thin bridge（轻量桥）透明。grep（文本搜索）佐证的影响分析见 [`specs/016-superpowers-6-0-0-alignment/research.md`](specs/016-superpowers-6-0-0-alignment/research.md)。
-
-v1.2.0 让桥成为 `speckit.implement` 真正的即插即用替代：它会分发相同的 `before_implement` / `after_implement` extension hook（扩展生命周期钩子），输出 Spec Kit 规定的强制 `EXECUTE_COMMAND:` 指令，实际调用并等待每个强制 hook，并在 handoff 变成 `complete` 前完成 post-hook（后置钩子）。本版本还修复 Issue（问题单）#13：Bash handoff 写入器不再依赖 GNU（GNU 工具链）的专有缺失路径参数，因此标准 macOS 环境无需 GNU coreutils（GNU 核心工具集）。没有新增命令、注册 hook、状态文件、schema（数据结构规范）或 guard rule（守卫规则）。参见 [`specs/018-release-0-16-4-hardening/spec.md`](specs/018-release-0-16-4-hardening/spec.md)。
-
-Spec Kit 1.0.12 与 Superpowers 6.4.2 是当前已审计的开发基线。桥接器采用最新的 git 与 agent-context 源码、命令占位符、Spec Kit 对 malformed registry（格式错误注册表）的 parser-error（解析器错误）报告契约，并为 Superpowers 的 `Task N` 标题契约生成一次性 task adapter（任务适配文件）。runtime floor（运行时下限）仍为 `>=0.8.10`；桥没有新增 parallel hook runner（并行钩子执行器）、planner（规划器）或状态机。Superpowers 6.4.2 保留桥调用的所有 skill（技能）名称，heading-based executor（标题驱动执行器）由 canonical `tasks.md` 通过一次性执行脚手架供给任务。
-v1.3.0 对齐 Spec Kit 1.0.12 与 Superpowers 6.4.2。它按当前 parser-error 契约报告格式错误的扩展注册表，并在原生 Superpowers 工作区之外用稳定的一次性文件，把 Spec Kit checkbox task（复选框任务）适配为 Superpowers 6.4.2 要求的 `Task N` 标题。canonical `tasks.md` 仍是唯一 requirements（需求）与 completion（完成状态）来源；三条 command、五个 hook、handoff v1、guard、actor、stable-alias 与 `>=0.8.10` runtime floor 契约均保持不变。参见 [`specs/019-update-latest-upstreams/spec.md`](specs/019-update-latest-upstreams/spec.md)。
-
+SP 完成后调用 `$speckit-speckit-superpowers-bridge-converge`。桥读取已安装的原生 SK converge 正文，仅在临时文件中适配执行者条件和后续入口。实际核验代码与测试；无缺口时任务字节不变，有缺口时只追加可追溯任务并交回 `ready`；强制后置钩子失败则 `blocked`。原生 SK 文件保持原版，其 implement 前置条件继续保留。
 
 | 目标 | 状态 | 证据 |
 |---|---|---|
-| Linux Bash | 已验证 | 完整 smoke suite（冒烟测试套件）+ release artifact sandbox cycle（发布产物隔离验证循环）。 |
-| Windows PowerShell 5.1+ | 已验证 | 原生 PowerShell smoke + release artifact sandbox cycle。旧 Windows Spec Kit CLI 在 GBK 控制台渲染 Rich 符号时可设置 `PYTHONUTF8=1`。 |
-| macOS Bash | 发布门禁 | 发布前必须通过原生托管 macOS 冒烟与可移植性回归；不宣称本地公共发布包 sandbox 验证。 |
-| Codex | 已验证 | 当前源码与 sandbox 检查使用 Codex CLI（命令行界面）`0.157.1`。 |
-| Claude Code | 集成已验证 | 本地 Claude Code `2.1.283` 的 Spec Kit 受管集成状态与 Claude/Codex skill parity（技能一致性）契约通过；不新增 live provider（在线供应方）行为声明。 |
+| Linux Bash | 已验证 | 原生安装、真实 Codex 全流程与桥接收敛。 |
+| Windows PowerShell 5.1+ | 已验证 | 原生安装、真实 Codex 全流程与桥接收敛。 |
+| macOS Bash | 脚本门禁通过 | 托管冒烟与可移植性检查；未实测 Codex 工作流。 |
+| Codex | 已验证 | CLI 0.162.1，gpt-6.1-sol、low；两平台累计 20 次主调用、6 次审查。 |
+| Claude Code | 未实测 | 仅镜像指令与脚本结构检查。 |
+
+完整证据见 [specs/020-codex-latest-compatibility/verification.md](specs/020-codex-latest-compatibility/verification.md) 与 [Actions 最终证据门禁](https://github.com/Self-Command/sp-sk-bridge-compat-ci/actions/runs/38292614419)。
 
 安装后运行轻量 readiness 检查：
 
@@ -172,11 +161,7 @@ readiness 报告是只读的：检查 script flavor、required tools、command n
 <details>
 <summary><strong>安装（纯 Codex / 纯 Claude Code / 双 Agent / 开发安装 / 固定版本）</strong></summary>
 
-先装 Spec Kit。本插件已收录到官方 Spec Kit community catalog，catalog 用于发现和审阅。
-
-官方收录页：[docs/community/extensions.md](https://github.com/github/spec-kit/blob/main/docs/community/extensions.md)（通过 [issue #2581](https://github.com/github/spec-kit/issues/2581) 和 [PR #2586](https://github.com/github/spec-kit/pull/2586) 接受）。
-
-community catalog 默认是 discovery-only，所以正常安装使用稳定的 latest-release ZIP。
+先安装 Spec Kit。本维护 fork 使用自己的 Release ZIP；上游项目的 catalog 收录不代表本 fork 已获收录。
 
 **纯 Codex**
 
@@ -245,7 +230,7 @@ specify extension add --dev (Join-Path $tmp.FullName "speckit-superpowers-bridge
 **固定版本安装**（用来可复现地安装某个精确版本）：
 
 ```powershell
-specify extension add speckit-superpowers-bridge --from https://github.com/Self-Command/speckit-superpowers-bridge/releases/download/v1.3.0/speckit-superpowers-bridge-v1.3.0.zip
+specify extension add speckit-superpowers-bridge --from https://github.com/Self-Command/speckit-superpowers-bridge/releases/download/v1.4.0/speckit-superpowers-bridge-v1.4.0.zip
 ```
 
 </details>
@@ -280,7 +265,7 @@ sudo dnf install bash jq      # Fedora
 4. /speckit-plan                    （生成 plan.md + research.md + data-model.md + contracts/）
 5. /speckit-tasks                   （生成 tasks.md）
                        │
-                       │ after_tasks 钩子触发 → 写入 handoff JSON；status=executing
+                       │ after_tasks 钩子触发 → 写入 handoff JSON；status=ready
                        ▼
 6. /speckit-superpowers-bridge      （Claude Code）  或  $speckit-superpowers-bridge  （Codex）
        │
@@ -321,6 +306,7 @@ sudo dnf install bash jq      # Fedora
 |---|---|---|
 | `/speckit-superpowers-bridge` | `$speckit-superpowers-bridge` | 通过桥协议把 Spec Kit `tasks.md` 跑进 Superpowers |
 | `/speckit-speckit-superpowers-bridge-handoff` | `$speckit-speckit-superpowers-bridge-handoff` | 创建或更新 Superpowers handoff 状态 |
+| `/speckit-speckit-superpowers-bridge-converge` | `$speckit-speckit-superpowers-bridge-converge` | 核验 SP 完成证据，复用 SK 规则评估并追加整改任务 |
 | `/speckit-speckit-superpowers-bridge-guard` | `$speckit-speckit-superpowers-bridge-guard` | 检查请求的命令是否被当前 handoff 状态允许 |
 | `bash .specify/extensions/speckit-superpowers-bridge/scripts/bash/bridge-status.sh`（Windows 用 `.ps1`） | 同左 | **(v0.7.0+)** 一秒内打印当前 bridge 状态 + `Drift:` + `Next:` 推荐命令。只读。`--json` 支持机器可读输出。v1.0.0 起可加 `--readiness` / `-Readiness` 查看安装健康度。 |
 
@@ -369,18 +355,9 @@ v0.2.x 中存在的 6 个元命令（`audit`、`validate`、`parity`、`recommen
 <details>
 <summary><strong>维护与版本（Maintenance and versioning）</strong></summary>
 
-本版本（v1.3.0）针对以下版本验证：
+本版本 v1.4.0 实测 **Spec Kit 1.1.3、Superpowers 7.0.0、Codex CLI 0.162.1**，模型为 gpt-6.1-sol、low。Linux 与 Windows 通过原生安装和真实模型回归；macOS 仅脚本门禁通过，Claude Code 未做在线实测。
 
-- **Spec Kit** `1.0.12`：用于仓库 bootstrap（初始化）、Linux Bash 验证与 v1.3.0 发布 sandbox；runtime floor 仍为 `>=0.8.10`
-- **Superpowers** `6.4.2`
-- **Codex CLI** `0.147.0`
-- **Claude Code** `2.1.233`
-
-verified metadata 记录在 [`.specify/extensions/speckit-superpowers-bridge/verified-versions.json`](.specify/extensions/speckit-superpowers-bridge/verified-versions.json) —— 项目自有、只做增量扩展的 schema，在 bridge release 或上游兼容基线变化时刷新。v1.3.0 记录 bridge、上游工具、平台和真实 Agent 行；缺失或 blocked 的行不会被宣传为 verified。
-
-当上游工具的新版破坏了桥，我们要么修补桥脚本，要么在 `CHANGELOG.md` 中钉住已验证的兼容版本。
-
-Spec Kit `0.9.x` 已把 coding-agent context（编码代理上下文）更新迁移到 bundled（内置）`agent-context` 扩展。桥的运行时不依赖这个扩展，所以 `requires.speckit_version` 仍保持 `>=0.8.10`；本仓库跟踪当前 1.0.12 的 `agent-context` 与 `git` 源码，只为保持自身的 Spec Kit project bootstrap 最新。
+验证元数据见 [verified-versions.json](.specify/extensions/speckit-superpowers-bridge/verified-versions.json)。发布时核对最终包运行代码散列与模型候选一致。运行时声明下限仍为 `>=0.8.10`，本轮验证组合为以上固定版本。仓库内历史 bootstrap 源码维持上游基线，不表示其他版本经过本轮测试。
 
 > [!NOTE]
 > **自 v0.6.0 起**，marketplace 的 `download_url` 与版本号解耦。它永久指向 `https://github.com/Self-Command/speckit-superpowers-bridge/releases/latest/download/speckit-superpowers-bridge.zip`，由 GitHub 的 `/releases/latest/` 别名解析。后续桥 release 不再编辑 `download_url`，只在 `marketplace/catalog-entry.json` 里 bump `version`。这消除了一类反复出现的「每个版本编辑一次」工作量和漂移面 —— 是 Principle VI 能取得的最小一次胜利。
@@ -394,7 +371,7 @@ Spec Kit `0.9.x` 已把 coding-agent context（编码代理上下文）更新迁
 
 - **Spec Kit 拥有 WHAT。** Constitution、spec、clarify、plan、tasks、checklists、analysis 都是 `.specify/` 与 `specs/` 下的耐久设计 artifact。
 - **Superpowers 拥有 HOW。** TDD、debugging、executing-plans、requesting-code-review、verification-before-completion、finishing-a-development-branch，是在生命周期阶段调用的实现纪律技能。
-- **桥编排原生技能，不提供自定义纪律。** 它只贡献：Spec Kit 生成的 extension command skills、PowerShell 和 bash 两种 flavor 的六个小脚本（`update-handoff`、`guard-command`、`auto-archive-handoff`、`bridge-state`、`bridge-status`、`common-actor-resolution`），以及 5 条硬编码边界规则。没有 runtime matrix、没有 audit loop、没有 implementation validation pass、没有 command-parity subsystem。
+- **桥编排原生技能，不提供自定义纪律。** 它只贡献：Spec Kit 生成的 extension command skills、PowerShell 和 bash 两种 flavor 的七个小脚本（`update-handoff`、`guard-command`、`auto-archive-handoff`、`bridge-state`、`bridge-status`、`common-actor-resolution`、`prepare-convergence`），以及 5 条硬编码边界规则。没有 runtime matrix、没有 audit loop、没有 implementation validation pass、没有 command-parity subsystem。
 
 </details>
 
@@ -406,4 +383,4 @@ MIT —— 见 [`LICENSE`](LICENSE)。
 
 本插件使用 AI 协作开发（Claude Code 负责设计 + 规划；Codex 负责实现；0.3.0 的瘦身和 v0.6.0 的美化都由 Claude Code 独立完成）满足 [Spec Kit CONTRIBUTING.md](https://github.com/github/spec-kit/blob/main/CONTRIBUTING.md) 的 AI 披露要求。所有 artifact 都经人工 review 后提交。[`tests/`](tests/) 下的 smoke 测试（009 之后已经全 bash 化）覆盖 handoff schema、5 条硬编码 guard 规则、bridge-state 输出、before/after-implement hook 分发和跨 Agent skill 对等。
 
-Issues 与讨论：<https://github.com/lihan3238/speckit-superpowers-bridge/issues>
+Issues 与讨论：<https://github.com/Self-Command/speckit-superpowers-bridge/issues>

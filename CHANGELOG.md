@@ -19,7 +19,7 @@ This project adheres to [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1
 
 ### Compatibility
 
-- Candidate targets SK 1.1.3 / SP 7.0.0 / Codex CLI 0.162.1; evidence is pending until the current gates pass.
+- Verified SK 1.1.3 / SP 7.0.0 / Codex CLI 0.162.1 on native Linux and Windows with gpt-6.1-sol, low: 20 main calls, 6 reviews; all required scenarios passed. macOS shell gates passed; Claude Code was not live-tested.
 - The original SK converge prerequisite remains unchanged; use the bridge-specific entry for SP-completed features.
 
 ## [Unreleased]

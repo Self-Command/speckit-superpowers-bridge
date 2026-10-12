@@ -1,9 +1,2 @@
-<!--
-  Reference row for the community extension listing. As of the official
-  Extension Publishing Guide checked for v1.0.2, submit catalog updates via
-  GitHub's Extension Submission issue template; do not open a direct PR editing
-  `extensions/catalog.community.json`. Maintainers update the catalog/listing
-  from the issue metadata.
--->
-
-| Superpowers Implementation Bridge | Thin 1.4.0 bridge from Spec Kit design artifacts to Superpowers implementation discipline, with current implement-hook dispatch and portable macOS handoffs; verified against Superpowers 6.4.2 on Linux bash (Spec Kit 1.0.12), Windows PowerShell, macOS bash, Codex, and Claude Code. | `process` | Read+Write | [speckit-superpowers-bridge](https://github.com/Self-Command/speckit-superpowers-bridge) |
+<!-- Local reference only; this maintained fork has not been submitted upstream. -->
+| Superpowers Implementation Bridge | Maintained v1.4.0 repair fork: required-document blocking and a separate SP-to-SK convergence entry. Verified SK 1.1.3 / SP 7.0.0 with Codex CLI 0.162.1 on Linux bash and Windows PowerShell; macOS shell gates only; Claude Code not live-tested. | `process` | Read+Write | [speckit-superpowers-bridge](https://github.com/Self-Command/speckit-superpowers-bridge) |
