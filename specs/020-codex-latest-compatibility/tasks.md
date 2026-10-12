@@ -26,8 +26,8 @@ plan.md. Exactly one maintainer owns these control artifacts.
 - [x] T007 [US3] Add candidate Actions gates and adapt the existing test controller to consume the pinned candidate package.
 - [x] T008 [US3] Run the full bounded Codex Linux/Windows regression, including real PR creation and both-platform convergence.
 - [x] T009 [US3] Update README support claims, verification evidence and all version metadata after required checks pass.
-- [ ] T010 [US3] Run final package gates and publish v1.4.0 with both ZIP names and SHA256 checksums.
-- [ ] T011 [US3] Verify published installs and write the evidence-based detailed Chinese tutorial in the external local workspace.
+- [x] T010 [US3] Run final package gates and publish v1.4.0 with both ZIP names and SHA256 checksums.
+- [x] T011 [US3] Verify published installs and write the evidence-based detailed Chinese tutorial in the external local workspace.
 
 ## Dependencies and strategy
 

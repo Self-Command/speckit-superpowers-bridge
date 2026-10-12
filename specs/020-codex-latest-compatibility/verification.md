@@ -66,9 +66,8 @@ use the separately named bridge entry. Native SK/SP skills remain byte-identical
 unrecognized future SK convergence text stops rather than silently adapting.
 Claude Code was not live-tested and macOS has only hosted shell coverage.
 
-Public release URLs, final published checksums and post-publication Linux/Windows
-installs will be recorded after the tag workflow completes. No upstream marketplace
-submission is authorized or performed.
+Public release and both post-publication native install jobs passed. No upstream
+marketplace submission is authorized or performed.
 
 ## Local regression evidence
 
@@ -78,3 +77,14 @@ subprocess tests passed, including restoration, idle/archive, event/hash/task
 qualification, refusal without input mutation and exact adapter-text retention.
 The host PSModulePath was isolated to native Windows modules for these tests.
 The UTF-8 read fix preserves Unicode text when PS 5.1 prepares the adapter.
+
+## Published artifact and native installs
+
+- [Release](https://github.com/Self-Command/speckit-superpowers-bridge/releases/tag/v1.4.0), tag source `812471acef99e806bd034d840821b44e82912856`.
+- [Tag release workflow](https://github.com/Self-Command/speckit-superpowers-bridge/actions/runs/38294071396): all six jobs PASS, including public Linux and Windows native installation/reinstallation.
+- [Final main candidate gates](https://github.com/Self-Command/speckit-superpowers-bridge/actions/runs/38293789602): Linux, Windows and macOS PASS.
+- Public versioned ZIP, stable alias, SHA256SUMS and release-index.json downloaded and verified. Both ZIPs match the already verified final package byte-for-byte: `6c660203795b8f4bd47deb75f235fbf46039f0a7aefaac0036d3563ca66b9e3a`.
+- Public pinned/latest downloads match; both platforms install with native SK 1.1.3, `--force` reinstall, exact packaged commands/scripts and all thirteen installed-script subprocess regressions.
+- The detailed Chinese tutorial and Chinese validation report are local-only in the external workspace; they are not included in this fork or extension ZIP.
+
+These post-publication annotations and task checkboxes are source-only and do not change the published package or runtime digest.
