@@ -50,6 +50,7 @@ with tempfile.TemporaryDirectory(prefix='bridge-native-install-') as temporary:
     url = 'http://127.0.0.1:' + str(server.server_port) + '/' + archive.name
     try:
         command([specify, 'extension', 'add', 'speckit-superpowers-bridge', '--from', url], consumer, 'y\n')
+        command([specify, 'extension', 'add', 'speckit-superpowers-bridge', '--from', url, '--force'], consumer, 'y\n')
     finally:
         server.shutdown()
         server.server_close()
@@ -65,5 +66,5 @@ with tempfile.TemporaryDirectory(prefix='bridge-native-install-') as temporary:
     env['BRIDGE_TEST_SCRIPTS'] = str(extension / 'scripts')
     env['BRIDGE_TEST_FLAVOR'] = 'ps' if win else 'sh'
     command([sys.executable, repo / 'tests/test_bridge_regressions.py', '-v'], repo)
-    print(json.dumps({'native_install': 'passed', 'script_flavor': env['BRIDGE_TEST_FLAVOR'],
+    print(json.dumps({'native_install': 'passed', 'native_reinstall': 'passed', 'script_flavor': env['BRIDGE_TEST_FLAVOR'],
                       'zip_sha256': index['zip_sha256'], 'source_sha': index['source_sha']}))
